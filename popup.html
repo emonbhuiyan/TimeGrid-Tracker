@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; width: 340px; margin: 0; background: #f9fdfa; color: #222; }
+    
+    /* Settings View */
+    #settings-view { padding: 20px; }
+    label { font-size: 12px; font-weight: 600; color: #5e6d55; margin-top: 12px; display: block; }
+    input { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+    .btn-primary { width: 100%; padding: 10px; margin-top: 20px; background: #14a800; color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+    .btn-primary:hover { background: #108a00; }
+    
+    /* Summary View Base */
+    #summary-view { display: none; }
+    .toolbar { display: flex; justify-content: space-between; padding: 10px 20px; background: #f2f2f2; border-bottom: 1px solid #e0e0e0; font-size: 13px; }
+    .toolbar-btn { background: none; border: none; color: #14a800; cursor: pointer; font-weight: 600; }
+    .toolbar-btn:hover { text-decoration: underline; }
+    
+    /* Tabs */
+    .tabs { display: flex; border-bottom: 1px solid #e0e0e0; background: white; }
+    .tab-btn { flex: 1; padding: 12px 0; background: none; border: none; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; }
+    .tab-btn.active { color: #14a800; border-bottom: 3px solid #14a800; }
+    .tab-btn:hover:not(.active) { color: #333; }
+
+    /* Headers */
+    .header { background: white; padding: 20px; border-bottom: 1px solid #e0e0e0; text-align: center; }
+    .header h2 { margin: 0; font-size: 28px; color: #14a800; }
+    .header p { margin: 4px 0 0 0; font-size: 13px; color: #666; }
+    
+    /* Weekly Nav */
+    .week-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+    .week-nav button { background: none; border: none; font-size: 16px; cursor: pointer; color: #555; padding: 0 10px; }
+    .week-nav button:hover { color: #14a800; }
+    #week-dropdown { font-size: 15px; font-weight: bold; color: #333; border: none; background: transparent; cursor: pointer; outline: none; text-align: center; font-family: inherit; }
+    #week-dropdown:hover { color: #14a800; }
+
+    /* Lists */
+    .data-list { padding: 0 20px 20px 20px; }
+    .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+    .data-row:last-child { border-bottom: none; }
+    .data-label { font-weight: 500; }
+    .data-val { font-weight: 600; color: #333; }
+    
+    #status-msg { font-size: 12px; color: #666; text-align: center; margin-top: 10px; }
+    #monthly-section { display: none; } /* Hidden by default */
+  </style>
+</head>
+<body>
+
+  <div id="settings-view">
+    <h3 style="margin-top: 0; color: #14a800;">Setup TimeGrid</h3>
+    <label>Google Sheet Link</label>
+    <input type="text" id="sheetUrl" placeholder="https://docs.google.com/...">
+    
+    <label>Tab Name</label>
+    <input type="text" id="sheetTab" placeholder="e.g. Timesheet">
+
+    <label>Year</label>
+    <input type="number" id="sheetYear" placeholder="2024">
+    
+    <button class="btn-primary" id="saveAndSyncBtn">Save & Sync</button>
+    <div id="status-msg"></div>
+  </div>
+
+  <div id="summary-view">
+    <div class="toolbar">
+      <span id="last-synced-text">Synced: Never</span>
+      <div>
+        <button class="toolbar-btn" id="syncBtn">Sync</button>
+        <button class="toolbar-btn" id="editSettingsBtn">Settings</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-weekly">Weekly</button>
+      <button class="tab-btn" id="tab-monthly">Monthly</button>
+    </div>
+
+    <div id="weekly-section">
+      <div class="header">
+        <h2 id="weekly-total">0:00</h2>
+        <p>Total This Week</p>
+      </div>
+      <div class="week-nav">
+        <button id="prevWeek">&larr;</button>
+        <select id="week-dropdown"></select>
+        <button id="nextWeek">&rarr;</button>
+      </div>
+      <div class="data-list" id="days-container"></div>
+    </div>
+
+    <div id="monthly-section">
+      <div class="header">
+        <h2 id="yearly-total">0:00</h2>
+        <p>Total for <span id="display-year"></span></p>
+      </div>
+      <div class="data-list" id="months-container"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

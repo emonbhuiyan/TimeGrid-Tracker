@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "TimeGrid Tracker",
+  "version": "1.0",
+  "description": "Calculates weekly hours from your timesheet.",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Open TimeGrid",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://docs.google.com/spreadsheets/*"
+  ]
+}
