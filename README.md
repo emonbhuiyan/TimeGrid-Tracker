@@ -53,4 +53,4 @@ To calculate the dates accurately, the extension expects the Google Sheet to be 
 
 ## License
 
-MIT License
+[MIT License](LICENSE)
